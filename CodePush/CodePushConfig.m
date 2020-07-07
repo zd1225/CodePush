@@ -13,7 +13,9 @@ static NSString * const ClientUniqueIDConfigKey = @"clientUniqueId";
 static NSString * const DeploymentKeyConfigKey = @"deploymentKey";
 static NSString * const ServerURLConfigKey = @"serverUrl";
 static NSString * const PublicKeyKey = @"publicKey";
-static NSString * const PushConfigKey = @"CodePushDeploymentKey";
+static NSString * const CodePushDeploymentKey = @"CodePushDeploymentKey";
+static NSString * const CodePushServerURL = @"CodePushServerURL";
+static NSString * const CodePushPublicKey = @"CodePushPublicKey";
 
 #define Host  @"https://codepush.appcenter.ms/"
 
@@ -25,7 +27,7 @@ static NSString * const PushConfigKey = @"CodePushDeploymentKey";
 + (void)initialize
 {
     if (self == [CodePushConfig class]) {
-        _currentConfig = [[CodePushConfig alloc] init: PushConfigKey];
+        _currentConfig = [[CodePushConfig alloc] init: CodePushDeploymentKey];
     }
 }
 
@@ -36,12 +38,12 @@ static NSString * const PushConfigKey = @"CodePushDeploymentKey";
 
     NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
     NSString *buildVersion = [infoDictionary objectForKey:(NSString *)kCFBundleVersionKey];
-    NSString *deploymentKey = [infoDictionary objectForKey:PushConfigKey];
+    NSString *deploymentKey = [infoDictionary objectForKey:CodePushDeploymentKey];
     if (depKey != nil) {
         deploymentKey = [infoDictionary objectForKey: depKey];
     }
-    NSString *serverURL = [infoDictionary objectForKey:@"CodePushServerURL"];
-    NSString *publicKey = [infoDictionary objectForKey:@"CodePushPublicKey"];
+    NSString *serverURL = [infoDictionary objectForKey:CodePushServerURL];
+    NSString *publicKey = [infoDictionary objectForKey:CodePushPublicKey];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *clientUniqueId = [userDefaults stringForKey:ClientUniqueIDConfigKey];
